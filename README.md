@@ -4,5 +4,10 @@ A basic npm module template with organized structure and example helper function
 
 ## Installation
 
-```bash
-npm install your-module-name
+git remote set-url origin https://github.com/yourusername/yourrepo.git
+
+git remote -v
+
+git fetch
+git reset origin/main --hard
+
