@@ -9,5 +9,6 @@ git remote set-url origin https://github.com/yourusername/yourrepo.git
 git remote -v
 
 git fetch
+
 git reset origin/main --hard
 
