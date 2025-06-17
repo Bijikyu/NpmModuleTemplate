@@ -29,6 +29,7 @@ This is a basic NPM module template designed to provide a structured foundation 
 - **restoreFocus**: Restores focus to a specified element using React refs
 - **setTocFocus**: Manages focus for table of contents or navigation menu accessibility
 - **calcNewTabIndex**: Calculates new tab index for keyboard navigation (Arrow keys, Home, End)
+- **toggleInert**: Manages inert attribute for accessibility, controlling element focusability
 
 ### Module Organization
 - **Consolidated Exports**: `lib/index.js` aggregates all utility functions

@@ -2,10 +2,10 @@
  * Simple test file to demonstrate the npm module functionality
  */
 
-const { formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus, calcNewTabIndex } = require('./index.js');
+const { formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus, calcNewTabIndex, toggleInert } = require('./index.js');
 
 console.log('=== NPM Module Template Test ===');
-console.log('Available functions: formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus, calcNewTabIndex');
+console.log('Available functions: formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus, calcNewTabIndex, toggleInert');
 console.log('');
 
 // Test formatString
@@ -117,6 +117,56 @@ try {
 }
 console.log('');
 
+// Test toggleInert
+console.log('Testing toggleInert:');
+try {
+  // Mock DOM element for testing
+  const mockElement = {
+    inert: false,
+    setAttribute: function(attr, value) { 
+      this[attr] = value;
+      console.log(`Element attribute ${attr} set to "${value}"`);
+    },
+    removeAttribute: function(attr) { 
+      delete this[attr];
+      console.log(`Element attribute ${attr} removed`);
+    }
+  };
+  
+  // Test making element inert (true)
+  console.log('toggleInert with true (make inert):');
+  toggleInert(mockElement, true);
+  console.log('Element inert state:', mockElement.inert);
+  
+  // Test making element interactive (false)
+  console.log('toggleInert with false (make interactive):');
+  toggleInert(mockElement, false);
+  console.log('Element inert state:', mockElement.inert);
+  
+  // Test with element without inert property (fallback to attributes)
+  const mockElementNoInert = {
+    setAttribute: function(attr, value) { 
+      this[attr] = value;
+      console.log(`Fallback element attribute ${attr} set to "${value}"`);
+    },
+    removeAttribute: function(attr) { 
+      delete this[attr];
+      console.log(`Fallback element attribute ${attr} removed`);
+    }
+  };
+  
+  console.log('toggleInert with element without inert property:');
+  toggleInert(mockElementNoInert, true);
+  toggleInert(mockElementNoInert, false);
+  
+  // Test with null element (should not throw)
+  console.log('toggleInert with null element:', toggleInert(null, true));
+  
+} catch (error) {
+  console.log('toggleInert error:', error.message);
+}
+console.log('');
+
 // Test error handling
 console.log('Testing error handling:');
 try {
@@ -159,6 +209,12 @@ try {
   calcNewTabIndex('ArrowRight', 0, 0);
 } catch (error) {
   console.log('calcNewTabIndex zero total error:', error.message);
+}
+
+try {
+  toggleInert({}, 'not-boolean');
+} catch (error) {
+  console.log('toggleInert invalid type error:', error.message);
 }
 
 try {
