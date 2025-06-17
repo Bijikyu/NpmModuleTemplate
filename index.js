@@ -3,7 +3,7 @@
  * Exports all public functions and utilities
  */
 
-const { formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus } = require('./lib');
+const { formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus, calcNewTabIndex } = require('./lib');
 
 module.exports = {
   formatString,
@@ -11,5 +11,6 @@ module.exports = {
   generateId,
   focusFirstError,
   restoreFocus,
-  setTocFocus
+  setTocFocus,
+  calcNewTabIndex
 };

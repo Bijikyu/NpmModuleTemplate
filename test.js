@@ -2,10 +2,10 @@
  * Simple test file to demonstrate the npm module functionality
  */
 
-const { formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus } = require('./index.js');
+const { formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus, calcNewTabIndex } = require('./index.js');
 
 console.log('=== NPM Module Template Test ===');
-console.log('Available functions: formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus');
+console.log('Available functions: formatString, validateEmail, generateId, focusFirstError, restoreFocus, setTocFocus, calcNewTabIndex');
 console.log('');
 
 // Test formatString
@@ -94,6 +94,29 @@ try {
 }
 console.log('');
 
+// Test calcNewTabIndex
+console.log('Testing calcNewTabIndex:');
+try {
+  // Test arrow key navigation
+  console.log('calcNewTabIndex ArrowRight from 0 of 5:', calcNewTabIndex('ArrowRight', 0, 5));
+  console.log('calcNewTabIndex ArrowRight from 4 of 5 (wrap):', calcNewTabIndex('ArrowRight', 4, 5));
+  console.log('calcNewTabIndex ArrowLeft from 0 of 5 (wrap):', calcNewTabIndex('ArrowLeft', 0, 5));
+  console.log('calcNewTabIndex ArrowLeft from 2 of 5:', calcNewTabIndex('ArrowLeft', 2, 5));
+  
+  // Test Home/End navigation
+  console.log('calcNewTabIndex Home from 3 of 5:', calcNewTabIndex('Home', 3, 5));
+  console.log('calcNewTabIndex End from 1 of 5:', calcNewTabIndex('End', 1, 5));
+  
+  // Test with different key (should stay same)
+  console.log('calcNewTabIndex Space from 2 of 5:', calcNewTabIndex('Space', 2, 5));
+  
+  // Test single tab scenario
+  console.log('calcNewTabIndex ArrowRight from 0 of 1:', calcNewTabIndex('ArrowRight', 0, 1));
+} catch (error) {
+  console.log('calcNewTabIndex error:', error.message);
+}
+console.log('');
+
 // Test error handling
 console.log('Testing error handling:');
 try {
@@ -112,6 +135,30 @@ try {
   setTocFocus('not-boolean', {}, {});
 } catch (error) {
   console.log('setTocFocus invalid type error:', error.message);
+}
+
+try {
+  calcNewTabIndex(123, 0, 5);
+} catch (error) {
+  console.log('calcNewTabIndex invalid key type error:', error.message);
+}
+
+try {
+  calcNewTabIndex('ArrowRight', -1, 5);
+} catch (error) {
+  console.log('calcNewTabIndex negative index error:', error.message);
+}
+
+try {
+  calcNewTabIndex('ArrowRight', 5, 5);
+} catch (error) {
+  console.log('calcNewTabIndex index >= total error:', error.message);
+}
+
+try {
+  calcNewTabIndex('ArrowRight', 0, 0);
+} catch (error) {
+  console.log('calcNewTabIndex zero total error:', error.message);
 }
 
 try {
